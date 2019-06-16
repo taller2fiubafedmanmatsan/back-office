@@ -9,26 +9,23 @@
 // users: ,
 // admins:
 
+
 const listReducerDefaultState = {
   columns: [
     { title: 'Name', field: 'name' },
     { title: 'Description', field: 'description' },
     { title: 'Creator', field: 'creator'},
+    { title: 'Welcome Message', field: 'welcomeMessage'},
+    { title: 'Channels', field: 'channels', type: 'numeric'},
+    { title: 'Users', field: 'users', type: 'numeric'}
   ],
-  data: [
-    { name: 'El de aca', description: 'aca para los pibes', creator: 'Messi' },
-    {
-      name: 'Otro ws',
-      description: 'Mati esta re duro',
-      creator: 'Diegote' 
-    },
-  ],
+  data: [],
 };
 
 export default (state = listReducerDefaultState, action) => {
   switch (action.type) {
     case 'FETCH_All_WORKSPACES':
-      console.log(action)
+      console.log(action);
       return {
         ...state,
         data: [

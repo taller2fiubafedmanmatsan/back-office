@@ -3,20 +3,13 @@ import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
 import { fetchAllWorkspace } from './actions';
 import Api from '../../../client/hypechat';
-// import dataFilter from './dataFilter'; 
+import dataFilter from './dataFilter'; 
 
 class WorkspaceList extends React.Component {
   async componentDidMount() {
     const { data: workspace } = await Api.get(`/api/workspaces/red`);
-    const pData = {
-      name: workspace.name,
-      description: workspace.description,
-      creator: workspace.creator.name,
-      // welcomeMessage: workspace.welcomeMessage,
-      // channels: workspace.channels.length,
-      // users: workspace.users.length,
-    };
-    this.props.fetchAllWorkspace(pData);
+
+    this.props.fetchAllWorkspace(dataFilter(workspace));
   }
 
   render() {
