@@ -1,0 +1,52 @@
+{
+  "name": "HypechatBackOffice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production",
+    "dev-server": "webpack-dev-server",
+    "start": "node server/server.js",
+    "heroku-postbuild": "npm run build:prod"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.1.1",
+    "@material-ui/icons": "^4.2.0",
+    "@material-ui/styles": "^4.1.1",
+    "axios": "^0.19.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "express": "^4.15.4",
+    "material-table": "^1.39.1",
+    "moment": "^2.18.1",
+    "node-sass": "^4.5.3",
+    "normalize.css": "^7.0.0",
+    "react": "^16.8.6",
+    "react-addons-shallow-compare": "^15.6.0",
+    "react-dates": "^12.3.0",
+    "react-dom": "^16.8.6",
+    "react-modal": "^2.2.2",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "uuid": "^3.1.0",
+    "validator": "^8.0.0",
+    "webpack": "^4.34.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.1"
+  },
+  "devDependencies": {
+    "extract-text-webpack-plugin": "^4.0.0-beta.0"
+  }
+}
