@@ -20,15 +20,15 @@ import GruopIcon from '@material-ui/icons/Group';
 import MessageIcon from '@material-ui/icons/Message';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
-import WorkspaceList from '../WorkspaceList/component';
+import Main from '../Main/component';
 
 const useStyles = makeStyles(stylesConfig);
 
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [show, setShow] = React.useState('gato');
+  console.log(props);
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -39,7 +39,7 @@ export default function Navbar() {
   }
 
   function handleOnClickWorkspaces() {
-    setShow('workspaces');
+    props.nav.showWorkspaces();
   }
 
   return (
@@ -108,7 +108,7 @@ export default function Navbar() {
           [classes.contentShift]: open,
         })}
       >
-      {(show === 'workspaces') && <WorkspaceList className="workspaceList" />}
+        <Main />
       </main>
     </div>
   );
