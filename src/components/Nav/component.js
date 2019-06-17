@@ -28,6 +28,7 @@ export default function Navbar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [show, setShow] = React.useState('gato');
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -35,6 +36,10 @@ export default function Navbar() {
 
   function handleDrawerClose() {
     setOpen(false);
+  }
+
+  function handleOnClickWorkspaces() {
+    setShow('workspaces');
   }
 
   return (
@@ -77,7 +82,7 @@ export default function Navbar() {
         </div>
         <Divider />
         <List>
-          <ListItem button key={"Workspaces"}>
+          <ListItem button key={"Workspaces"} onClick={handleOnClickWorkspaces}>
             <ListItemIcon>{<FolderSpecialIcon />}</ListItemIcon>
             <ListItemText primary={"Workspaces"} />
           </ListItem>
@@ -103,7 +108,7 @@ export default function Navbar() {
           [classes.contentShift]: open,
         })}
       >
-        <WorkspaceList className="workspaceList" />
+      {(show === 'workspaces') && <WorkspaceList className="workspaceList" />}
       </main>
     </div>
   );
