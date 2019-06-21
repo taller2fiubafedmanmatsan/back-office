@@ -24,9 +24,9 @@ class WorkspaceList extends React.Component {
     await Api.delete(`/api/workspaces/${wsName}`);
   }
 
-  onRowClick(workspace) {
-    this.props.showWorkspaceInfo(workspace);
-  }
+  // onRowClick(workspace) {
+  //   this.props.showWorkspaceInfo(workspace);
+  // }
   
   render() {
     console.log(this.props.workspace);
@@ -37,21 +37,12 @@ class WorkspaceList extends React.Component {
         data={this.props.workspace.data}
         actions={[
           {
-            icon: 'info',
-            tooltip: 'Info',
+            icon: 'edit',
+            tooltip: 'Edit',
             onClick: (event, rowData) => this.props.showWorkspaceInfo(rowData)
           }
         ]}
         editable={{
-          onRowUpdate: (newData, oldData) =>
-            new Promise(resolve => {
-              setTimeout(() => {
-                resolve();
-                const data = [...this.props.workspace.data];
-                data[data.indexOf(oldData)] = newData;
-                this.onRowUpdate(newData, oldData);
-              }, 600);
-            }),
           onRowDelete: oldData =>
             new Promise(resolve => {
               setTimeout(() => {

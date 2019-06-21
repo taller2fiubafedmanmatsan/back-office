@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import WorkspaceSpecs from './WorkspaceSpecs/component';
-import WorkspaceList from '../WorkspaceList/component';
+import ChannelList from '../ChannelList/component';
 
 class WorkspaceInfo extends React.Component{
   render() {
     return (
       <div>
         <WorkspaceSpecs workspace={this.props.selectedWorkspace}/>
-        <WorkspaceList />
+        <ChannelList workspace={this.props.selectedWorkspace}/>
       </div>
     );
   };
