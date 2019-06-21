@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 import DashboardPage from '../components/Dashboard/DashboardPage';
 import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
-// import Header from '../components/Header';
 
 const AppRouter = () => (
   <BrowserRouter>

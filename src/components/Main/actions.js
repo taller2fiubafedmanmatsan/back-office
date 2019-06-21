@@ -9,7 +9,7 @@ export const showWorkspaceInfo = (
   workspace
 ) => ({
   type: 'SHOW_WORKSPACE_INFO',
-  show: 'workspace',
+  show: 'workspaceInfo',
   workspace
 });
 

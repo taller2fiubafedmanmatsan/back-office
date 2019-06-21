@@ -24,11 +24,12 @@ class WorkspaceList extends React.Component {
     await Api.delete(`/api/workspaces/${wsName}`);
   }
 
-  onRowClick(wsName) {
-    this.props.showWorkspaceInfo(wsName);
+  onRowClick(workspace) {
+    this.props.showWorkspaceInfo(workspace);
   }
   
   render() {
+    console.log(this.props.workspace);
     return (
       <MaterialTable
         title="Workspaces"
@@ -38,7 +39,7 @@ class WorkspaceList extends React.Component {
           {
             icon: 'info',
             tooltip: 'Info',
-            onClick: (event, rowData) => this.props.showWorkspaceInfo(rowData.name)
+            onClick: (event, rowData) => this.props.showWorkspaceInfo(rowData)
           }
         ]}
         editable={{

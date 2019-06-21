@@ -2,10 +2,10 @@ const listReducerDefaultState = {
   columns: [
     { title: 'Name', field: 'name', editable: 'never' },
     { title: 'Description', field: 'description' },
-    { title: 'Creator', field: 'creator'},
+    { title: 'Creator', field: 'creatorName'},
     { title: 'Welcome Message', field: 'welcomeMessage'},
-    { title: 'Channels', field: 'channels', type: 'numeric', editable: 'never' },
-    { title: 'Users', field: 'users', type: 'numeric', editable: 'never' }
+    { title: 'Channels', field: 'channelsAmount', type: 'numeric', editable: 'never' },
+    { title: 'Users', field: 'usersAmount', type: 'numeric', editable: 'never' }
   ],
   data: [],
 };

@@ -1,0 +1,31 @@
+.container {
+  display: 'flex';
+  flex-wrap: 'wrap';
+}
+
+.textField {
+  margin-left: 16px;
+  margin-right: 16px;
+  width: 150;
+}
+
+// .field {
+//   margin-left: 16px;
+//   margin-right: 16px;
+// }
+
+.dense {
+  margin-top: 19;
+}
+
+.menu {
+  width: 200;
+}
+
+.button {
+  margin: 4rem;
+}
+
+.iconSmall {
+  font-size: 20;
+}

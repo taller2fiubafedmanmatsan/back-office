@@ -3,12 +3,10 @@ import forIn from 'lodash/forIn';
 export const filterFetch = workspaces => {
   return workspaces.map((workspace) => {
     return {
-      name: workspace.name,
-      description: workspace.description,
-      creator: workspace.creator.name,
-      welcomeMessage: workspace.welcomeMessage,
-      channels: workspace.channels.length,
-      users: workspace.users.length,
+      ...workspace,
+      creatorName: workspace.creator.name,
+      channelsAmount: workspace.channels.length,
+      usersAmount: workspace.users.length
     }
   });
 };
