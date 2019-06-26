@@ -26,9 +26,16 @@ class ChannelList extends React.Component {
     await Api.delete(`/api/channels/${chName}/workspace/${this.props.workspace.name}`);
   }
 
-  // onRowClick(channel) {
-  //   // this.props.showChannelInfo(channel);
-  // }
+  async onRowClick(selectedChannel) {
+    const response = await Api.get(`/api/channels/${selectedChannel.name}/workspace/${this.props.workspace.name}/users`);
+    const users = response.data;
+    const channel = {
+      ...selectedChannel,
+      users,
+      creator: users.find((u) => u._id === selectedChannel.creator)
+    };
+    this.props.showChannelInfo(channel);
+  }
   
   render() {
     console.log(this.props.channel);
@@ -41,7 +48,7 @@ class ChannelList extends React.Component {
           {
             icon: 'edit',
             tooltip: 'Edit',
-            onClick: (event, rowData) => this.props.showChannelInfo(rowData)
+            onClick: (event, rowData) => this.onRowClick(rowData)
           }
         ]}
         editable={{
@@ -63,6 +70,7 @@ class ChannelList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     channel: state.channel,
+    workspace: state.nav.workspace
   };
 };
 

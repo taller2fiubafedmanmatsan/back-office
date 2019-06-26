@@ -12,6 +12,13 @@ export default (state = showDefaultState, action) => {
           show: action.show,
           workspace: action.workspace
         };
+
+    case 'SHOW_CHANNEL_INFO':
+      return {
+        ...state,
+        show: action.show,
+        channel: action.channel
+      };
     
     default:
       return state;

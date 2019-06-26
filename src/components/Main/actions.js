@@ -13,9 +13,10 @@ export const showWorkspaceInfo = (
   workspace
 });
 
-export const showChannels = (
-  wsName
+export const showChannelInfo = (
+  channel
 ) => ({
-  type: 'DELETE_WORKSPACE',
-  wsName
+  type: 'SHOW_CHANNEL_INFO',
+  show: 'channelInfo',
+  channel
 });

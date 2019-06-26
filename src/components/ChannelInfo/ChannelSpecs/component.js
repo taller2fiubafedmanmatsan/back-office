@@ -3,34 +3,38 @@ import { connect } from 'react-redux';
 import Api from '../../../../client/hypechat';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { updateWorkspace } from '../../WorkspaceList/actions';
+import { updateChannel } from '../../ChannelList/actions';
 
-class WorkspaceSpecs extends React.Component{
+class ChannelSpecs extends React.Component{
   state = { 
+    name: '',
     description: '',
     welcomeMessage: '',
-    bots: []
+    channelType: '',
+    isPrivate: '',
   }
 
-  async componentDidMount() {
-    const state = this.props.workspace;
+  componentDidMount() {
+    const state = this.props.channel;
+    console.log('llegue2');
+    console.log(this.props.channel);
     this.setState(() => ({ 
+      name: state.name,
       description: state.description,
       welcomeMessage: state.welcomeMessage,
-      bots: state.bots
+      channelType: state.channelType,
+      isPrivate: state.isPrivate,
      }));
     console.log(this.state);
-    console.log('estaaaaaa');
-    console.log(this.props.workspace);
   }
 
   async handleOnClick() {
-    const ws = {
-      ...this.props.workspace,
+    const channel = {
+      ...this.props.channel,
       ...this.state,
     };
-    this.props.updateWorkspace(ws);
-    await Api.patch(`/api/workspaces/${this.props.workspace.name}/fields`, this.state);
+    await Api.patch(`/api/channels/${this.props.channel.name}/workspace/${this.props.workspace.name}`, channel);
+    this.props.updateChannel(channel);
   }
 
   handleChange(name) {
@@ -42,12 +46,11 @@ class WorkspaceSpecs extends React.Component{
   
   render() {
     const {
-      name,
-      creator,
-      channelsAmount,
-      admins,
-      bots
-    } = this.props.workspace;
+      bots,
+      creator
+    } = this.props.channel;
+    console.log("llegue1")
+    console.log(this.props.channel);
     return (
       <form className={'container'} noValidate autoComplete="off">
         <div key="field" className='field'>
@@ -55,11 +58,9 @@ class WorkspaceSpecs extends React.Component{
             id="standard-name"
             label="Name"
             className={'textField'}
-            value={name}
+            value={this.state.name}
             margin='normal'
-            InputProps={{
-              readOnly: true,
-            }}
+            onChange={this.handleChange('name')}
           />
           <TextField
             id="standard-description"
@@ -75,6 +76,22 @@ class WorkspaceSpecs extends React.Component{
             className={'textField'}
             value={this.state.welcomeMessage}
             onChange={this.handleChange('welcomeMessage')}
+            margin='normal'
+          />
+          <TextField
+            id="standard-description"
+            label="Type"
+            className={'textField'}
+            value={this.state.channelType}
+            onChange={this.handleChange('channelType')}
+            margin='normal'
+          />
+          <TextField
+            id="standard-description"
+            label="Private"
+            className={'textField'}
+            value={this.state.isPrivate}
+            onChange={this.handleChange('isPrivate')}
             margin='normal'
           />
         </div>
@@ -98,7 +115,7 @@ class WorkspaceSpecs extends React.Component{
             readOnly: true,
           }}
         />
-        <TextField
+        {/* <TextField
           id="standard-disabled"
           label="Channels Amount"
           className={'textField'}
@@ -107,59 +124,8 @@ class WorkspaceSpecs extends React.Component{
           InputProps={{
             readOnly: true,
           }}
-        />
-        {(admins.length > 0) && <h3>Administrators</h3>}
-        {
-          (admins.length > 0) && admins.map((admin) => (
-            <div key="admins" className='admins'>
-              <TextField
-                id={`standard-creator-name${admin.id}`}
-                label="Name"
-                className={'textField'}
-                value={admin.name}
-                margin='normal'
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id={`standard-creator-email${admin.id}`}
-                label="Creator Email"
-                className={'textField'}
-                value={admin.email}
-                margin='normal'
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </div>
-          ))
-        }
-        {(bots.length > 0) && bots.map((bot) => (
-            <div key="bots" className='bots'>
-              <TextField
-                id={`standard-creator-name${bot.id}`}
-                label="Name"
-                className={'textField'}
-                value={bot.name}
-                margin='normal'
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id={`standard-creator-email${bot.id}`}
-                label="url"
-                className={'textField'}
-                value={bot.url}
-                margin='normal'
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </div>
-          ))
-        }
+        /> */}
+        {(bots && bots.length > 0) && <h3>Bots</h3>}
         <Button 
           id="save-button"
           variant="outlined" 
@@ -175,7 +141,7 @@ class WorkspaceSpecs extends React.Component{
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  updateWorkspace: (expense) => dispatch(updateWorkspace(expense))
+  updateChannel: (expense) => dispatch(updateChannel(expense))
 });
 
-export default connect(undefined, mapDispatchToProps)(WorkspaceSpecs);
+export default connect(undefined, mapDispatchToProps)(ChannelSpecs);
