@@ -1,23 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import MaterialTable from 'material-table';
-import { fetchAllChannel, updateChannel, deleteChannel } from './actions';
+import { fetchAllChannel, updateChannel, deleteChannel, clearChannelTable } from './actions';
 import { showChannelInfo } from '../Main/actions';
 import Api from '../../../client/hypechat';
-import { filterFetch, filterNewFields } from './dataFilter'; 
+import { filterFetch } from './dataFilter'; 
 
 class ChannelList extends React.Component {
   async componentDidMount() {
     const { data: channel } = await Api(this.props.token).get(`/api/channels/workspace/${this.props.workspace.name}`);
-    console.log(channel);
     this.props.fetchAllChannel(filterFetch(channel));
-  }
-
-  async onRowUpdate(newData, oldData) {
-    const ch = channel.data.filter((ch) => ch.name === newData.name);
-    this.props.updateChannel({_id: ch._id, ...newData});
-    await Api(this.props.token).patch(`/api/channels/${newData.name}/workspace/${this.props.workspace.name}`, filterNewFields(newData, oldData));
   }
 
   async onRowDelete(chName) {
@@ -36,6 +28,10 @@ class ChannelList extends React.Component {
       creator: users.find((u) => u._id === selectedChannel.creator)
     };
     this.props.showChannelInfo(channel);
+  }
+
+  componentWillUnmount() {
+    this.props.clearChannelTable();
   }
   
   render() {
@@ -79,7 +75,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   fetchAllChannel: (ch) => dispatch(fetchAllChannel(ch)),
   updateChannel: (newData) => dispatch(updateChannel(newData)),
   deleteChannel: (chName) => dispatch(deleteChannel(chName)),
-  showChannelInfo: (chName) => dispatch(showChannelInfo(chName))
+  showChannelInfo: (chName) => dispatch(showChannelInfo(chName)),
+  clearChannelTable: () => dispatch(clearChannelTable()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);

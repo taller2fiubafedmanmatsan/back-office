@@ -6,7 +6,6 @@ const LoginDefaultState = {
 export default (state = LoginDefaultState, action) => {
   switch (action.type) {
     case 'LOGIN':
-      console.log(action);
       return { 
         login: true,
         token: action.token

@@ -18,3 +18,7 @@ export const deleteChannel = (
   type: 'DELETE_CHANNEL',
   chId
 });
+
+export const clearChannelTable = () => ({
+  type: 'CLEAR_TABLE'
+});

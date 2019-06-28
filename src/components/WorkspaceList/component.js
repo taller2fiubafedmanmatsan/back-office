@@ -1,23 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import MaterialTable from 'material-table';
 import { fetchAllWorkspace, updateWorkspace, deleteWorkspace } from './actions';
 import { showWorkspaceInfo } from '../Main/actions';
 import Api from '../../../client/hypechat';
-import { filterFetch, filterNewFields } from './dataFilter'; 
+import { filterFetch } from './dataFilter'; 
 
 class WorkspaceList extends React.Component {
   async componentDidMount() {
-    console.log(this.props.token);
     const { data: workspace } = await Api(this.props.token).get(`/api/workspaces/`);
     console.log(workspace);
     this.props.fetchAllWorkspace(filterFetch(workspace));
-  }
-
-  async onRowUpdate(newData, oldData) {
-    this.props.updateWorkspace(newData);
-    await Api(this.props.token).patch(`/api/workspaces/${newData.name}/fields`, filterNewFields(newData, oldData));
   }
 
   async onRowDelete(wsName) {
@@ -35,7 +28,6 @@ class WorkspaceList extends React.Component {
   }
   
   render() {
-    console.log(this.props.workspace);
     return (
       <MaterialTable
         title="Workspaces"

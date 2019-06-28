@@ -14,16 +14,21 @@ const listReducerDefaultState = {
 export default (state = listReducerDefaultState, action) => {
   switch (action.type) {
     case 'FETCH_All_CHANNELS':
-      console.log(action);
+        let newChannels = action.data;
+        if (state.data) {
+          const ids = state.data.map((ch) => ch._id);
+          newChannels = action.data.filter((ch) => {
+            return !ids.includes(ch._id);
+          });
+        }
       return {
         ...state,
         data: [
           ...state.data,
-          ...action.data
+          ...newChannels
         ]
       };
     case 'UPDATE_CHANNEL':
-        console.log(action);
         const newData = state.data.map((ch) => {
           if (ch._id === action.data._id) {
             return action.data;
@@ -31,7 +36,6 @@ export default (state = listReducerDefaultState, action) => {
             return ch;
           };
         });
-        console.log(newData);
         return {
           ...state,
           data: newData
@@ -40,6 +44,11 @@ export default (state = listReducerDefaultState, action) => {
         return {
           ...state,
           data: state.data.filter((ch) => (ch._id !== action.chId))
+        }
+    case 'CLEAR_TABLE':
+        return {
+          ...state,
+          data: []
         }
     
     default:

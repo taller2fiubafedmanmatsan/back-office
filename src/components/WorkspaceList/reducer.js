@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const listReducerDefaultState = {
   columns: [
     { title: 'Name', field: 'name', editable: 'never' },
@@ -13,16 +15,21 @@ const listReducerDefaultState = {
 export default (state = listReducerDefaultState, action) => {
   switch (action.type) {
     case 'FETCH_All_WORKSPACES':
-      console.log(action);
+      let newWorspaces = action.data;
+      if (state.data) {
+        const names = state.data.map((ws) => ws.name);
+        newWorspaces = action.data.filter((ws) => {
+          return !names.includes(ws.name);
+        });
+      }
       return {
         ...state,
         data: [
           ...state.data,
-          ...action.data
+          ...newWorspaces
         ]
       };
     case 'UPDATE_WORKSPACE':
-        console.log(action);
         const newData = state.data.map((ws) => {
           if (ws.name === action.data.name) {
             return action.data;
@@ -30,7 +37,6 @@ export default (state = listReducerDefaultState, action) => {
             return ws;
           };
         });
-        console.log(newData);
         return {
           ...state,
           data: newData

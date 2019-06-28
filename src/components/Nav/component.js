@@ -16,8 +16,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import GruopIcon from '@material-ui/icons/Group';
-import MessageIcon from '@material-ui/icons/Message';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
 import Main from '../Main/component';
@@ -28,7 +26,6 @@ export default function Navbar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  console.log(props);
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -89,10 +86,6 @@ export default function Navbar(props) {
           <ListItem button key={"Workspaces"} onClick={handleOnClickWorkspaces}>
             <ListItemIcon>{<FolderSpecialIcon />}</ListItemIcon>
             <ListItemText primary={"Workspaces"} />
-          </ListItem>
-          <ListItem button key={"Users"}>
-            <ListItemIcon>{<GruopIcon />}</ListItemIcon>
-            <ListItemText primary={"Users"} />
           </ListItem>
         </List>
         <Divider />

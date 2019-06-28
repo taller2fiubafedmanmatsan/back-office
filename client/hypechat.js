@@ -7,9 +7,3 @@ export default (token) => {
     headers: { 'x-auth-token': token }
   });  
 };
-
-// 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDE1NjJjMDgxOTYwYjAwMDRiZDUyZDAiLCJpYXQiOjE1NjE2ODI2MjR9.zyyNQoZa_i2C_0HICLWRffGmH0Cmbt3tTGc4xgF0zho'
-// export default axios.create({
-//   baseURL: 'https://localhost:3000/',
-//   timeout: 5000,
-// });

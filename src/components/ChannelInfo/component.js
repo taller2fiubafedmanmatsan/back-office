@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ChannelSpecs from './ChannelSpecs/component';
-// import ChannelList from '../ChannelList/component';
 import UserList from '../UsersList/channelConnector';
 
 class ChannelInfo extends React.Component{

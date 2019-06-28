@@ -19,12 +19,3 @@ export const filterNewFields = (newData, oldData) => {
 
   return data;
 };
-
-  // return [{
-  //   name: workspaces.name,
-  //   description: workspaces.description,
-  //   creator: workspaces.creator.name,
-  //   welcomeMessage: workspaces.welcomeMessage,
-  //   channels: workspaces.channels.length,
-  //   users: workspaces.users.length,
-  // }];

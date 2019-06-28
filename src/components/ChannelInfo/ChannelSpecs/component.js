@@ -51,8 +51,6 @@ class ChannelSpecs extends React.Component{
       creator,
       users
     } = this.props.channel;
-    console.log("llegue1")
-    console.log(this.props.channel);
     return (
       <form className={'container'} noValidate autoComplete="off">
         <div key="field" className='field'>

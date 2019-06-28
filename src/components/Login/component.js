@@ -29,14 +29,12 @@ class Login extends React.Component{
 
   async handleLogIn() {
     const { status: status, data: token } = await Api().post(`/api/auth/signin`, this.state);
-    // console.log(response.data);
     if (status === 200) {
       this.props.login(token);
     }
   }
 
   render() {
-    console.log(document);
     return (
       <div className="login-box">
         <h1>Login</h1>
@@ -66,12 +64,6 @@ class Login extends React.Component{
     );
   };
 };
-
-// const mapStateToProps = (state) => {
-//   return {
-//     nav: state.nav
-//   };
-// };
 
 const mapDispatchToProps = (dispatch, props) => ({
   login: (token) => dispatch(login(token))

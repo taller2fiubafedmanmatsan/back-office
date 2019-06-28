@@ -22,7 +22,6 @@ export default class BotTable extends React.Component {
   }
 
   render() {
-    console.log(this.props.user);
     return (
       <div className="ws-user-list">
         <MaterialTable

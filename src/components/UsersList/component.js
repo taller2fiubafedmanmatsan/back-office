@@ -27,7 +27,6 @@ export default class UserList extends React.Component {
   }
   
   render() {
-    console.log(this.props.user);
     return (
       <div className="ws-user-list">
         <MaterialTable
@@ -50,7 +49,6 @@ export default class UserList extends React.Component {
                   resolve();
                   const data = [...this.state.users];
                   data.splice(data.indexOf(oldData), 1);
-                  console.log(data);
                   this.onRowDelete(data, oldData.email);
                 }, 600);
               }),
