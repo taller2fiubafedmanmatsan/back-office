@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-// import Api from '../../../client/hypechat';
+import Api from '../../../client/hypechat';
 
 export default class UserList extends React.Component {
   state = {
@@ -16,12 +16,14 @@ export default class UserList extends React.Component {
 
   async handleRowAdd(data) {
     this.setState((prevState) => ({users: [...prevState.users, data]}));
-    this.props.addUser(data, this.props.channel, this.props.workspace);
+    const url = this.props.addUser(this.props.channel, this.props.workspace);
+    await Api(this.props.token).patch(url, {users: [data.email]});
   }
 
   async onRowDelete(users, userEmail) {
     this.setState(() => ({users: [...users]}));
-    this.props.deleteUser(userEmail, this.props.channel, this.props.workspace);
+    const url = this.props.deleteUser(this.props.channel, this.props.workspace)
+    await Api(this.props.token).patch(url, {users: [userEmail]});
   }
   
   render() {

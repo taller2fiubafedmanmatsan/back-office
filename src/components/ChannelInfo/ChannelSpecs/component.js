@@ -12,20 +12,22 @@ class ChannelSpecs extends React.Component{
     welcomeMessage: '',
     channelType: '',
     isPrivate: '',
+    amountMessages: '',
   }
 
   componentDidMount() {
     const state = this.props.channel;
-    console.log('llegue2');
-    console.log(this.props.channel);
+    const pages =  this.props.channel.pages;
+    const amountMessages = pages[pages.length -1].messages.length + 50 * (pages.length - 1);
+
     this.setState(() => ({ 
       name: state.name,
       description: state.description,
       welcomeMessage: state.welcomeMessage,
       channelType: state.channelType,
       isPrivate: state.isPrivate,
+      amountMessages: amountMessages
      }));
-    console.log(this.state);
   }
 
   async handleOnClick() {
@@ -33,7 +35,7 @@ class ChannelSpecs extends React.Component{
       ...this.props.channel,
       ...this.state,
     };
-    await Api.patch(`/api/channels/${this.props.channel.name}/workspace/${this.props.workspace.name}`, channel);
+    await Api(this.props.token).patch(`/api/channels/${this.props.channel.name}/workspace/${this.props.workspace.name}`, channel);
     this.props.updateChannel(channel);
   }
 
@@ -46,8 +48,8 @@ class ChannelSpecs extends React.Component{
   
   render() {
     const {
-      bots,
-      creator
+      creator,
+      users
     } = this.props.channel;
     console.log("llegue1")
     console.log(this.props.channel);
@@ -115,17 +117,28 @@ class ChannelSpecs extends React.Component{
             readOnly: true,
           }}
         />
-        {/* <TextField
-          id="standard-disabled"
-          label="Channels Amount"
-          className={'textField'}
-          value={channelsAmount}
-          margin='normal'
-          InputProps={{
-            readOnly: true,
-          }}
-        /> */}
-        {(bots && bots.length > 0) && <h3>Bots</h3>}
+        <div>
+          <TextField
+            id="standard-creator-email"
+            label="Messages Amount"
+            className={'textField'}
+            value={this.state.amountMessages}
+            margin='normal'
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            id="standard-creator-email"
+            label="Users Amount"
+            className={'textField'}
+            value={users.length}
+            margin='normal'
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </div>
         <Button 
           id="save-button"
           variant="outlined" 
@@ -140,8 +153,14 @@ class ChannelSpecs extends React.Component{
   };
 }
 
+const mapStateToProps = (state) => {
+  return {
+    token: state.login.token
+  };
+};
+
 const mapDispatchToProps = (dispatch) => ({
   updateChannel: (expense) => dispatch(updateChannel(expense))
 });
 
-export default connect(undefined, mapDispatchToProps)(ChannelSpecs);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelSpecs);

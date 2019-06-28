@@ -19,9 +19,6 @@ class WorkspaceSpecs extends React.Component{
       welcomeMessage: state.welcomeMessage,
       bots: state.bots
      }));
-    console.log(this.state);
-    console.log('estaaaaaa');
-    console.log(this.props.workspace);
   }
 
   async handleOnClick() {
@@ -30,7 +27,7 @@ class WorkspaceSpecs extends React.Component{
       ...this.state,
     };
     this.props.updateWorkspace(ws);
-    await Api.patch(`/api/workspaces/${this.props.workspace.name}/fields`, this.state);
+    await Api(this.props.token).patch(`/api/workspaces/${this.props.workspace.name}/fields`, this.state);
   }
 
   handleChange(name) {
@@ -46,6 +43,7 @@ class WorkspaceSpecs extends React.Component{
       creator,
       channelsAmount,
       admins,
+      users,
       bots
     } = this.props.workspace;
     return (
@@ -98,16 +96,28 @@ class WorkspaceSpecs extends React.Component{
             readOnly: true,
           }}
         />
-        <TextField
-          id="standard-disabled"
-          label="Channels Amount"
-          className={'textField'}
-          value={channelsAmount}
-          margin='normal'
-          InputProps={{
-            readOnly: true,
-          }}
-        />
+        <div>
+          <TextField
+            id="standard-disabled"
+            label="Channels Amount"
+            className={'textField'}
+            value={channelsAmount}
+            margin='normal'
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            id="standard-disabled"
+            label="Users Amount"
+            className={'textField'}
+            value={users.length}
+            margin='normal'
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </div>
         {(admins.length > 0) && <h3>Administrators</h3>}
         {
           (admins.length > 0) && admins.map((admin) => (
@@ -174,8 +184,14 @@ class WorkspaceSpecs extends React.Component{
   };
 }
 
+const mapStateToProps = (state) => {
+  return {
+    token: state.login.token
+  };
+};
+
 const mapDispatchToProps = (dispatch) => ({
   updateWorkspace: (expense) => dispatch(updateWorkspace(expense))
 });
 
-export default connect(undefined, mapDispatchToProps)(WorkspaceSpecs);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceSpecs);

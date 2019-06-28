@@ -6,12 +6,13 @@ import UserList from './component';
 const mapStateToProps = (state) => {
   return {
     users: state.nav.channel.users,
+    token: state.login.token
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  addUser: async (u, ch, ws) => (await Api.patch(`/api/channels/${ch.name}/workspace/${ws.name}/addUsers`, {users: [u.email]})),
-  deleteUser: async (email, ch, ws) => (await Api.patch(`/api/channels/${ch.name}/workspace/${ws.name}/users`, {users: [email]}))
+  addUser: (ch, ws) => `/api/channels/${ch.name}/workspace/${ws.name}/addUsers`,
+  deleteUser: (ch, ws) => `/api/channels/${ch.name}/workspace/${ws.name}/users`
 });
 
 

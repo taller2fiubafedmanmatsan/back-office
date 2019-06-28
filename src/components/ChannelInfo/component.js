@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ChannelSpecs from './ChannelSpecs/component';
 // import ChannelList from '../ChannelList/component';
 import UserList from '../UsersList/channelConnector';
-import Api from '../../../client/hypechat';
 
 class ChannelInfo extends React.Component{
   render() {

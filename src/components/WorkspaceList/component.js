@@ -9,23 +9,24 @@ import { filterFetch, filterNewFields } from './dataFilter';
 
 class WorkspaceList extends React.Component {
   async componentDidMount() {
-    const { data: workspace } = await Api.get(`/api/workspaces/`);
+    console.log(this.props.token);
+    const { data: workspace } = await Api(this.props.token).get(`/api/workspaces/`);
     console.log(workspace);
     this.props.fetchAllWorkspace(filterFetch(workspace));
   }
 
   async onRowUpdate(newData, oldData) {
     this.props.updateWorkspace(newData);
-    await Api.patch(`/api/workspaces/${newData.name}/fields`, filterNewFields(newData, oldData));
+    await Api(this.props.token).patch(`/api/workspaces/${newData.name}/fields`, filterNewFields(newData, oldData));
   }
 
   async onRowDelete(wsName) {
     this.props.deleteWorkspace(wsName);
-    await Api.delete(`/api/workspaces/${wsName}`);
+    await Api(this.props.token).delete(`/api/workspaces/${wsName}`);
   }
 
   async handleOnClick(rowData) {
-    const response = await Api.get(`/api/workspaces/${rowData.name}/bots`);
+    const response = await Api(this.props.token).get(`/api/workspaces/${rowData.name}/bots`);
     const workspace = {
       ...rowData,
       bots: response.data
@@ -65,7 +66,8 @@ class WorkspaceList extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    workspace: state.workspace
+    workspace: state.workspace,
+    token: state.login.token
   };
 };
 

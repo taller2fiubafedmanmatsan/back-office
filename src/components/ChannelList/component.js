@@ -9,7 +9,7 @@ import { filterFetch, filterNewFields } from './dataFilter';
 
 class ChannelList extends React.Component {
   async componentDidMount() {
-    const { data: channel } = await Api.get(`/api/channels/workspace/${this.props.workspace.name}`);
+    const { data: channel } = await Api(this.props.token).get(`/api/channels/workspace/${this.props.workspace.name}`);
     console.log(channel);
     this.props.fetchAllChannel(filterFetch(channel));
   }
@@ -17,20 +17,21 @@ class ChannelList extends React.Component {
   async onRowUpdate(newData, oldData) {
     const ch = channel.data.filter((ch) => ch.name === newData.name);
     this.props.updateChannel({_id: ch._id, ...newData});
-    await Api.patch(`/api/channels/${newData.name}/workspace/${this.props.workspace.name}`, filterNewFields(newData, oldData));
+    await Api(this.props.token).patch(`/api/channels/${newData.name}/workspace/${this.props.workspace.name}`, filterNewFields(newData, oldData));
   }
 
   async onRowDelete(chName) {
     const ch = channel.data.filter((ch) => ch.name === newData.name);
     this.props.deleteChannel(ch._id);
-    await Api.delete(`/api/channels/${chName}/workspace/${this.props.workspace.name}`);
+    await Api(this.props.token).delete(`/api/channels/${chName}/workspace/${this.props.workspace.name}`);
   }
 
   async onRowClick(selectedChannel) {
-    const response = await Api.get(`/api/channels/${selectedChannel.name}/workspace/${this.props.workspace.name}/users`);
-    const users = response.data;
+    const response = await Api(this.props.token).get(`/api/channels/${selectedChannel.name}/workspace/${this.props.workspace.name}`);
+    const { users, pages } = response.data;
     const channel = {
       ...selectedChannel,
+      pages,
       users,
       creator: users.find((u) => u._id === selectedChannel.creator)
     };
@@ -38,7 +39,6 @@ class ChannelList extends React.Component {
   }
   
   render() {
-    console.log(this.props.channel);
     return (
       <MaterialTable
         title="Channels"
@@ -70,7 +70,8 @@ class ChannelList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     channel: state.channel,
-    workspace: state.nav.workspace
+    workspace: state.nav.workspace,
+    token: state.login.token
   };
 };
 

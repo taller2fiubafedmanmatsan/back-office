@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import WorkspaceSpecs from './WorkspaceSpecs/component';
 import ChannelList from '../ChannelList/component';
 import UserList from '../UsersList/workspaceConnector';
+import BotTable from '../BotTable/component';
 
 class WorkspaceInfo extends React.Component{
   render() {
@@ -11,6 +12,7 @@ class WorkspaceInfo extends React.Component{
         <WorkspaceSpecs workspace={this.props.selectedWorkspace}/>
         <ChannelList workspace={this.props.selectedWorkspace}/>
         <UserList workspace={this.props.selectedWorkspace}/>
+        <BotTable />
       </div>
     );
   };

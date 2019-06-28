@@ -6,12 +6,13 @@ import UserList from './component';
 const mapStateToProps = (state) => {
   return {
     users: state.nav.workspace.users,
+    token: state.login.token
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  addUser: async (u, ch, ws) => (await Api.patch(`/api/workspaces/${ws.name}/addUsers`, {users: [u.email]})),
-  deleteUser: async (email, ch, ws) => (await Api.patch(`/api/workspaces/${ws.name}/removeUsers`, {users: [email]}))
+  addUser: (ch, ws) => `/api/workspaces/${ws.name}/addUsers`,
+  deleteUser: (ch, ws) => `/api/workspaces/${ws.name}/removeUsers`
 });
 
 

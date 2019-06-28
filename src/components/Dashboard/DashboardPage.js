@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import WorkspaceList from '../WorkspaceList/component';
+import Login from '../Login/component';
 import { showWorkspaces } from '../Main/actions';
+import { logout } from '../Login/actions';
 import Navbar from '../Nav/component'
 
 class DashboardPage extends React.Component{
-
   render() {
     return (
       <div>
-        <Navbar nav={this.props}/>
+        {this.props.login === true ? <Navbar nav={this.props}/> : <Login className="login"/> }
       </div>
     );
   };
@@ -17,12 +17,14 @@ class DashboardPage extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    nav: state.nav
+    nav: state.nav,
+    login: state.login.login
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  showWorkspaces: () => dispatch(showWorkspaces())
+  showWorkspaces: () => dispatch(showWorkspaces()),
+  logout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);

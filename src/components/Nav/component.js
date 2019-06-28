@@ -42,6 +42,10 @@ export default function Navbar(props) {
     props.nav.showWorkspaces();
   }
 
+  function handleOnClickLogOut() {
+    props.nav.logout();
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -86,10 +90,6 @@ export default function Navbar(props) {
             <ListItemIcon>{<FolderSpecialIcon />}</ListItemIcon>
             <ListItemText primary={"Workspaces"} />
           </ListItem>
-          <ListItem button key={"Channels"}>
-            <ListItemIcon>{<MessageIcon />}</ListItemIcon>
-            <ListItemText primary={"Channels"} />
-          </ListItem>
           <ListItem button key={"Users"}>
             <ListItemIcon>{<GruopIcon />}</ListItemIcon>
             <ListItemText primary={"Users"} />
@@ -97,7 +97,7 @@ export default function Navbar(props) {
         </List>
         <Divider />
         <List>
-          <ListItem button key={"Log out"}>
+          <ListItem button key={"Log out"}  onClick={handleOnClickLogOut}>
             <ListItemIcon>{<SettingsPowerIcon />}</ListItemIcon>
             <ListItemText primary={"Log out"} />
           </ListItem>
