@@ -11,6 +11,9 @@
     "start": "node server/server.js",
     "heroku-postbuild": "npm run build:prod"
   },
+  "engines": {
+    "node": "10.15.3"
+  },
   "dependencies": {
     "@material-ui/core": "^4.1.1",
     "@material-ui/icons": "^4.2.0",
