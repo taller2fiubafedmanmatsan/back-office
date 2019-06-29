@@ -26,6 +26,7 @@ class WorkspaceSpecs extends React.Component{
       ...this.props.workspace,
       ...this.state,
     };
+
     this.props.updateWorkspace(ws);
     await Api(this.props.token).patch(`/api/workspaces/${this.props.workspace.name}/fields`, this.state);
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import WorkspaceSpecs from './WorkspaceSpecs/component';
+import WorkspaceSpecs from './WorkspaceStats/component';
 import ChannelList from '../ChannelList/component';
 import UserList from '../UsersList/workspaceConnector';
 import BotTable from '../BotTable/component';
