@@ -12,7 +12,7 @@ class WorkspaceInfo extends React.Component{
         <WorkspaceSpecs workspace={this.props.selectedWorkspace}/>
         <ChannelList workspace={this.props.selectedWorkspace}/>
         <UserList workspace={this.props.selectedWorkspace}/>
-        <BotTable />
+        <BotTable workspace={this.props.selectedWorkspace} bots={this.props.selectedWorkspace.bots}/>
       </div>
     );
   };

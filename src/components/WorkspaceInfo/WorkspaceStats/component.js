@@ -146,31 +146,6 @@ class WorkspaceSpecs extends React.Component{
             </div>
           ))
         }
-        {(bots.length > 0) && bots.map((bot) => (
-            <div key="bots" className='bots'>
-              <TextField
-                id={`standard-creator-name${bot.id}`}
-                label="Name"
-                className={'textField'}
-                value={bot.name}
-                margin='normal'
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id={`standard-creator-email${bot.id}`}
-                label="url"
-                className={'textField'}
-                value={bot.url}
-                margin='normal'
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </div>
-          ))
-        }
         <Button 
           id="save-button"
           variant="outlined" 

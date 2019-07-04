@@ -9,7 +9,6 @@ import { filterFetch } from './dataFilter';
 class WorkspaceList extends React.Component {
   async componentDidMount() {
     const { data: workspace } = await Api(this.props.token).get(`/api/workspaces/`);
-    console.log(workspace);
     this.props.fetchAllWorkspace(filterFetch(workspace));
   }
 

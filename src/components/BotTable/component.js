@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
 import Api from '../../../client/hypechat';
 
-export default class BotTable extends React.Component {
+class BotTable extends React.Component {
   state = {
     bots: []
   }
@@ -18,7 +19,11 @@ export default class BotTable extends React.Component {
 
   async handleRowAdd(data) {
     this.setState((prevState) => ({bots: [...prevState.bots, data]}));
-    await Api(this.props.token).patch(`/api/workspaces/${this.props.workspace.name}/bots`, {data});
+    const bot = {
+      name: data.name,
+      url: data.url
+    }
+    await Api(this.props.token).post(`/api/workspaces/${this.props.workspace.name}/bots`, bot);
   }
 
   render() {
@@ -51,3 +56,11 @@ BotTable.defaultProps = {
     { title: 'Url', field: 'url' }
   ],
 }
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.login.token
+  };
+};
+
+export default connect(mapStateToProps)(BotTable);
